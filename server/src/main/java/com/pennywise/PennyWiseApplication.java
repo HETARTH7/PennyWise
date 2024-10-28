@@ -1,4 +1,4 @@
-package com.pennywise.main;
+package com.pennywise;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
