@@ -23,6 +23,8 @@ public class Expense {
     private User user;
 
     private Double amount;
+    private String category;
+    private String modeOfPayment;
     private String reason;
     private Boolean saved;
     private Date date;
@@ -49,6 +51,22 @@ public class Expense {
 
     public void setAmount(Double amount) {
         this.amount = amount;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getModeOfPayment() {
+        return modeOfPayment;
+    }
+
+    public void setModeOfPayment(String modeOfPayment) {
+        this.modeOfPayment = modeOfPayment;
     }
 
     public String getReason() {

@@ -14,8 +14,11 @@ CREATE TABLE Expense (
     expense_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT,
     amount DECIMAL(10, 2) NOT NULL,
+    category VARCHAR(50),
+    mode_of_payment VARCHAR(50),
     reason VARCHAR(255),
     saved BOOLEAN DEFAULT FALSE,
     date DATE NOT NULL,
     FOREIGN KEY (user_id) REFERENCES User(user_id)
 );
+
