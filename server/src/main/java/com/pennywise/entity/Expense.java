@@ -26,7 +26,6 @@ public class Expense {
     private String category;
     private String modeOfPayment;
     private String reason;
-    private Boolean saved;
     private Date date;
 
     public int getExpenseId() {
@@ -75,14 +74,6 @@ public class Expense {
 
     public void setReason(String reason) {
         this.reason = reason;
-    }
-
-    public Boolean getSaved() {
-        return saved;
-    }
-
-    public void setSaved(Boolean saved) {
-        this.saved = saved;
     }
 
     public Date getDate() {

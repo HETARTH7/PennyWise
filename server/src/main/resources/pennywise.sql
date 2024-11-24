@@ -1,3 +1,4 @@
+drop database if exists pennywiseDB;
 create database pennywiseDB;
 
 use pennywiseDB;
@@ -17,7 +18,6 @@ CREATE TABLE Expense (
     category VARCHAR(50),
     mode_of_payment VARCHAR(50),
     reason VARCHAR(255),
-    saved BOOLEAN DEFAULT FALSE,
     date DATE NOT NULL,
     FOREIGN KEY (user_id) REFERENCES User(user_id)
 );
