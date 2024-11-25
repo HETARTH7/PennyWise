@@ -1,5 +1,6 @@
 package com.pennywise.service.expense;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,13 @@ public class ExpenseServiceImpl implements ExpenseService {
     }
 
     @Override
-    public List<Expense> findExpensesbyUsername(String username) {
-        return expenseDAO.findExpensesbyUsername(username);
+    public List<Expense> findExpensesbyUsername(String username, LocalDate start, LocalDate end) {
+        if (start == null || end == null) {
+            LocalDate now = LocalDate.now();
+            start = now.withDayOfMonth(1);
+            end = now.withDayOfMonth(now.lengthOfMonth());
+        }
+        return expenseDAO.findExpensesbyUsername(username, start, end);
     }
 
 }

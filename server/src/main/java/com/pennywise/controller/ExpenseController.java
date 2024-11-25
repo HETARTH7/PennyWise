@@ -1,5 +1,6 @@
 package com.pennywise.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pennywise.entity.Expense;
@@ -23,9 +25,13 @@ public class ExpenseController {
     private ExpenseService expenseService;
 
     @GetMapping("/{username}")
-    public ResponseEntity<List<Expense>> findExpensesbyUsername(@PathVariable String username) {
+    public ResponseEntity<List<Expense>> findExpensesbyUsername(@PathVariable String username,
+            @RequestParam(required = false) String start,
+            @RequestParam(required = false) String end) {
         try {
-            List<Expense> expenses = expenseService.findExpensesbyUsername(username);
+            LocalDate startDate = start != null ? LocalDate.parse(start) : null;
+            LocalDate endDate = end != null ? LocalDate.parse(end) : null;
+            List<Expense> expenses = expenseService.findExpensesbyUsername(username, startDate, endDate);
             expenses.forEach(e -> e.setUser(null));
             return ResponseEntity.ok(expenses);
         } catch (RuntimeException e) {

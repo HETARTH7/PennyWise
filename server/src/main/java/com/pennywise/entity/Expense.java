@@ -8,7 +8,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import java.util.Date;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "Expense")
@@ -26,7 +29,8 @@ public class Expense {
     private String category;
     private String modeOfPayment;
     private String reason;
-    private Date date;
+    @Temporal(TemporalType.DATE)
+    private LocalDate date;
 
     public int getExpenseId() {
         return expenseId;
@@ -76,11 +80,11 @@ public class Expense {
         this.reason = reason;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 }
