@@ -1,6 +1,7 @@
 package com.pennywise.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,6 +28,8 @@ public class UserDAOTest {
     @Test
     public void findByUsername() {
         User user = userDAO.findByUsername("john_doe").get();
+        assertNotNull(user);
+
         assertEquals(user.getUserID(), 1);
         assertEquals(user.getUsername(), "john_doe");
         assertEquals(user.getPassword(), "password123");
