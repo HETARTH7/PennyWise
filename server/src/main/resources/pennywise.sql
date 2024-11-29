@@ -3,7 +3,7 @@ create database pennywiseDB;
 
 use pennywiseDB;
 
-CREATE TABLE User (
+CREATE TABLE Users (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(100) NOT NULL,
@@ -19,6 +19,6 @@ CREATE TABLE Expense (
     mode_of_payment VARCHAR(50),
     reason VARCHAR(255),
     date DATE NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES User(user_id)
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
