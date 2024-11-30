@@ -25,7 +25,7 @@ public class ExpenseDAOTest {
     @BeforeEach
     public void setup() {
         User user = new User();
-        user.setUsername("john_doe");
+        user.setUsername("john_doe2");
         user.setPassword("password123");
         user.setBudget(500.0);
         userDAO.save(user);
@@ -43,12 +43,11 @@ public class ExpenseDAOTest {
 
     @Test
     void findExpensesbyUsername() {
-        List<Expense> expenses = expenseDAO.findExpensesbyUsername("john_doe", LocalDate.parse("2024-11-01"),
+        List<Expense> expenses = expenseDAO.findExpensesbyUsername("john_doe2", LocalDate.parse("2024-11-01"),
                 LocalDate.parse("2024-11-30"));
         assertNotNull(expenses);
 
         Expense expense = expenses.get(0);
-        // assertEquals(expense.getUser().getUserID(), 1);
         assertEquals(expense.getAmount(), 1000.00);
         assertEquals(expense.getCategory(), "Food Order");
         assertEquals(expense.getModeOfPayment(), "Credit Card");
