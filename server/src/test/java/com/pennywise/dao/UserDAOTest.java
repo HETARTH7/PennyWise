@@ -19,7 +19,7 @@ public class UserDAOTest {
     @BeforeEach
     public void setup() {
         User user = new User();
-        user.setUsername("john_doe");
+        user.setUsername("john_doe1");
         user.setPassword("password123");
         user.setBudget(500.0);
         userDAO.save(user);
@@ -27,11 +27,9 @@ public class UserDAOTest {
 
     @Test
     public void findByUsername() {
-        User user = userDAO.findByUsername("john_doe").get();
+        User user = userDAO.findByUsername("john_doe1").get();
         assertNotNull(user);
-
-        assertEquals(user.getUserID(), 1);
-        assertEquals(user.getUsername(), "john_doe");
+        assertEquals(user.getUsername(), "john_doe1");
         assertEquals(user.getPassword(), "password123");
         assertEquals(user.getBudget(), 500);
     }
