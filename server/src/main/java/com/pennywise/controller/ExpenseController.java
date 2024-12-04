@@ -57,7 +57,7 @@ public class ExpenseController {
             return ResponseEntity.ok("Expense Deleted.");
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Sorry. The expense could not be added.");
+                    .body("Sorry. The expense could not be deleted.");
         }
     }
 }
