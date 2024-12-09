@@ -18,5 +18,6 @@
       required
     />
     <button type="submit">Login</button>
+    <p *ngIf="errorMessage" style="color: red">{{ errorMessage }}</p>
   </form>
 </div>

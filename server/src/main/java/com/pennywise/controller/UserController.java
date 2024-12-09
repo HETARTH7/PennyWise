@@ -1,5 +1,8 @@
 package com.pennywise.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,12 +36,17 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody User userLogin) {
+    public ResponseEntity<Map<String, String>> login(@RequestBody User userLogin) {
         try {
             User user = userService.login(userLogin.getUsername(), userLogin.getPassword());
-            return ResponseEntity.ok("User logged in: " + user.getUsername());
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Login Sucessfull");
+            response.put("username", user.getUsername());
+            return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
 
         }
     }
