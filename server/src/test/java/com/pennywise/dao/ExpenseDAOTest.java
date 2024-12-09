@@ -28,10 +28,10 @@ public class ExpenseDAOTest {
         user.setUsername("john_doe2");
         user.setPassword("password123");
         user.setBudget(500.0);
-        userDAO.save(user);
+        User saved = userDAO.save(user);
 
         Expense expense = new Expense();
-        user.setUserID(1);
+        user.setUserID(saved.getUserID());
         expense.setAmount(1000.00);
         expense.setCategory("Food Order");
         expense.setModeOfPayment("Credit Card");

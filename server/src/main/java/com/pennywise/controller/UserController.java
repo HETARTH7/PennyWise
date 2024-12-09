@@ -3,6 +3,7 @@ package com.pennywise.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pennywise.entity.User;
 import com.pennywise.service.user.UserService;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -31,9 +33,9 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
+    public ResponseEntity<String> login(@RequestBody User userLogin) {
         try {
-            User user = userService.login(username, password);
+            User user = userService.login(userLogin.getUsername(), userLogin.getPassword());
             return ResponseEntity.ok("User logged in: " + user.getUsername());
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
