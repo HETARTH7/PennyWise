@@ -25,13 +25,17 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<String> signup(@RequestBody User user) {
+    public ResponseEntity<Map<String, String>> signup(@RequestBody User user) {
         try {
             User newUser = userService.signup(user);
-            return ResponseEntity.status(HttpStatus.CREATED)
-                    .body("User created successfully: " + newUser.getUsername());
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "User created successfully");
+            response.put("username", newUser.getUsername());
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
         }
     }
 
