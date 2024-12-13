@@ -21,7 +21,7 @@ export class SignupComponent {
   onSignup(): void {
     this.authService.signup(this.username, this.password).subscribe({
       next: (data) => {
-        this.authService.createLocalStorageToken(this.username);
+        this.authService.createLocalStorageToken(this.username, data.userID);
         console.log('User created:', data);
         this.errorMessage = '';
         this.router.navigate(['/home']);

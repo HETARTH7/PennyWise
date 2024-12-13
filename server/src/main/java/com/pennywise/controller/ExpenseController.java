@@ -1,11 +1,14 @@
 package com.pennywise.controller;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pennywise.entity.Expense;
 import com.pennywise.service.expense.ExpenseService;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/expense")
 public class ExpenseController {
@@ -40,13 +44,16 @@ public class ExpenseController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> addExpense(@RequestBody Expense expense) {
+    public ResponseEntity<Map<String, String>> addExpense(@RequestBody Expense expense) {
         try {
             expenseService.addExpense(expense);
-            return ResponseEntity.status(HttpStatus.CREATED).body("Expense Added Successfully.");
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Expense Added Successfully.");
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Sorry. The expense could not be added.");
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
         }
     }
 

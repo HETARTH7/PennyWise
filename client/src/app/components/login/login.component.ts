@@ -21,7 +21,7 @@ export class LoginComponent {
   onLogin(): void {
     this.authService.login(this.username, this.password).subscribe({
       next: (data) => {
-        this.authService.createLocalStorageToken(this.username);
+        this.authService.createLocalStorageToken(this.username, data.userID);
         console.log('Login successful:', data);
         this.errorMessage = '';
         this.router.navigate(['/home']);

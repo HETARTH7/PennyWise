@@ -9,6 +9,10 @@ export const routes: Routes = [
     path: '',
     pathMatch: 'full',
     redirectTo: () => {
+      const username = localStorage.getItem('user');
+      if (username) {
+        return 'home';
+      }
       return 'landing-page';
     },
   },

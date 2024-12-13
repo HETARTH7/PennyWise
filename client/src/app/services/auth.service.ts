@@ -9,8 +9,9 @@ export class AuthService {
   baseURL = 'http://localhost:8080/users';
   constructor(private http: HttpClient) {}
 
-  createLocalStorageToken(username: string) {
+  createLocalStorageToken(username: string, id: string) {
     localStorage.setItem('user', username);
+    localStorage.setItem('userID', id);
   }
 
   login(username: string, password: string): Observable<any> {

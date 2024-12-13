@@ -30,6 +30,7 @@ public class UserController {
             User newUser = userService.signup(user);
             Map<String, String> response = new HashMap<>();
             response.put("message", "User created successfully");
+            response.put("userID", Integer.toString(newUser.getUserID()));
             response.put("username", newUser.getUsername());
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (RuntimeException e) {
@@ -45,6 +46,7 @@ public class UserController {
             User user = userService.login(userLogin.getUsername(), userLogin.getPassword());
             Map<String, String> response = new HashMap<>();
             response.put("message", "Login Sucessfull");
+            response.put("userID", Integer.toString(user.getUserID()));
             response.put("username", user.getUsername());
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
