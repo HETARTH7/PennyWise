@@ -1,24 +1,56 @@
-<div>
-  <h1>Expenses</h1>
+<div class="expense-form">
+  <h3>Add Expense</h3>
   <form (ngSubmit)="onSubmit()">
-    <label for="amount">Amount</label>
-    <input type="number" [(ngModel)]="amount" name="amount" id="amount" />
-    <label for="amount">Reason</label>
-    <input type="text" [(ngModel)]="reason" name="reason" id="reason" />
-    <label for="amount">Date</label>
-    <input type="date" [(ngModel)]="date" name="date" id="date" />
-    <label for="category">Category</label>
-    <select [(ngModel)]="category" name="category" id="category">
-      <option *ngFor="let cat of categories" [value]="cat">
-        {{ cat }}
-      </option>
-    </select>
-    <label for="modeOfPayment">Mode Of Payment</label>
-    <select [(ngModel)]="modeOfPayment" name="modeOfPayment" id="modeOfPayment">
-      <option *ngFor="let mode of madesOfPayment" [value]="mode">
-        {{ mode }}
-      </option>
-    </select>
+    <div>
+      <label for="amount">Amount:</label>
+      <input type="number" id="amount" [(ngModel)]="amount" name="amount" required />
+    </div>
+    <div>
+      <label for="reason">Reason:</label>
+      <input type="text" id="reason" [(ngModel)]="reason" name="reason" required />
+    </div>
+    <div>
+      <label for="date">Date:</label>
+      <input type="date" id="date" [(ngModel)]="date" name="date" required />
+    </div>
+    <div>
+      <label for="category">Category:</label>
+      <select id="category" [(ngModel)]="category" name="category" required>
+        <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+      </select>
+    </div>
+    <div>
+      <label for="modeOfPayment">Mode of Payment:</label>
+      <select id="modeOfPayment" [(ngModel)]="modeOfPayment" name="modeOfPayment" required>
+        <option *ngFor="let mode of modesOfPayment" [value]="mode">{{ mode }}</option>
+      </select>
+    </div>
     <button type="submit">Add Expense</button>
   </form>
+</div>
+
+<hr />
+
+<div class="expense-list">
+  <h3>Saved Expenses</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Amount</th>
+        <th>Reason</th>
+        <th>Date</th>
+        <th>Category</th>
+        <th>Mode of Payment</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let expense of (expenses$ | async)">
+        <td>{{ expense.amount }}</td>
+        <td>{{ expense.reason }}</td>
+        <td>{{ expense.date }}</td>
+        <td>{{ expense.category }}</td>
+        <td>{{ expense.modeOfPayment }}</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
