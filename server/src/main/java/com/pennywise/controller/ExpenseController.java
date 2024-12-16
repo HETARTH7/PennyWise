@@ -58,13 +58,17 @@ public class ExpenseController {
     }
 
     @DeleteMapping("/delete/{expenseId}")
-    public ResponseEntity<String> deleteExpense(@PathVariable int expenseId) {
+    public ResponseEntity<Map<String, String>> deleteExpense(@PathVariable int expenseId) {
         try {
             expenseService.deleteExpense(expenseId);
-            return ResponseEntity.ok("Expense Deleted.");
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Expense Deleted.");
+            return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Sorry. The expense could not be deleted.");
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(errorResponse);
         }
     }
 }

@@ -15,6 +15,7 @@ import { Expense } from '../../interfaces/expense';
 })
 export class HomeComponent implements OnInit {
   expenses$!: Observable<Expense[]>;
+  expenseId: number = 0;
   amount: number = 0;
   reason: string = '';
   date: string = new Date().toISOString().split('T')[0];
@@ -30,8 +31,21 @@ export class HomeComponent implements OnInit {
     this.expenses$ = this.expenseService.getExpense('', '');
   }
 
+  onClick(expenseId: number): void {
+    this.expenseService.deleteExpense(expenseId).subscribe({
+      next: (data) => {
+        console.log(data.message);
+        this.refreshExpenses();
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
   onSubmit(): void {
     const expense = {
+      expenseId: this.expenseId,
       amount: this.amount,
       reason: this.reason,
       date: this.date,

@@ -3,11 +3,23 @@
   <form (ngSubmit)="onSubmit()">
     <div>
       <label for="amount">Amount:</label>
-      <input type="number" id="amount" [(ngModel)]="amount" name="amount" required />
+      <input
+        type="number"
+        id="amount"
+        [(ngModel)]="amount"
+        name="amount"
+        required
+      />
     </div>
     <div>
       <label for="reason">Reason:</label>
-      <input type="text" id="reason" [(ngModel)]="reason" name="reason" required />
+      <input
+        type="text"
+        id="reason"
+        [(ngModel)]="reason"
+        name="reason"
+        required
+      />
     </div>
     <div>
       <label for="date">Date:</label>
@@ -21,8 +33,15 @@
     </div>
     <div>
       <label for="modeOfPayment">Mode of Payment:</label>
-      <select id="modeOfPayment" [(ngModel)]="modeOfPayment" name="modeOfPayment" required>
-        <option *ngFor="let mode of modesOfPayment" [value]="mode">{{ mode }}</option>
+      <select
+        id="modeOfPayment"
+        [(ngModel)]="modeOfPayment"
+        name="modeOfPayment"
+        required
+      >
+        <option *ngFor="let mode of modesOfPayment" [value]="mode">
+          {{ mode }}
+        </option>
       </select>
     </div>
     <button type="submit">Add Expense</button>
@@ -44,12 +63,13 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let expense of (expenses$ | async)">
+      <tr *ngFor="let expense of expenses$ | async">
         <td>{{ expense.amount }}</td>
         <td>{{ expense.reason }}</td>
         <td>{{ expense.date }}</td>
         <td>{{ expense.category }}</td>
         <td>{{ expense.modeOfPayment }}</td>
+        <td><button (click)="onClick(expense.expenseId)">Delete</button></td>
       </tr>
     </tbody>
   </table>
