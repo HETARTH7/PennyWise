@@ -52,6 +52,11 @@
 
 <div class="expense-list">
   <h3>Saved Expenses</h3>
+  <label for="start">From:</label>
+  <input type="date" id="start" [(ngModel)]="start" name="start" required />
+  <label for="end">To:</label>
+  <input type="date" id="end" [(ngModel)]="end" name="end" required />
+  <button (click)="refreshExpenses()">Show</button>
   <table>
     <thead>
       <tr>
@@ -69,7 +74,9 @@
         <td>{{ expense.date }}</td>
         <td>{{ expense.category }}</td>
         <td>{{ expense.modeOfPayment }}</td>
-        <td><button (click)="onClick(expense.expenseId)">Delete</button></td>
+        <td>
+          <button (click)="deleteExpense(expense.expenseId)">Delete</button>
+        </td>
       </tr>
     </tbody>
   </table>

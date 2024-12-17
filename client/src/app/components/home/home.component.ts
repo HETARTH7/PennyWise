@@ -18,7 +18,22 @@ export class HomeComponent implements OnInit {
   expenseId: number = 0;
   amount: number = 0;
   reason: string = '';
-  date: string = new Date().toISOString().split('T')[0];
+  currDate: Date = new Date();
+  date: string = this.currDate.toISOString().split('T')[0];
+  start: string = new Date(
+    this.currDate.getFullYear(),
+    this.currDate.getMonth(),
+    2
+  )
+    .toISOString()
+    .split('T')[0];
+  end: string = new Date(
+    this.currDate.getFullYear(),
+    this.currDate.getMonth() + 1,
+    1
+  )
+    .toISOString()
+    .split('T')[0];
   category: Category | null = null;
   modeOfPayment: PaymentMode | null = null;
 
@@ -28,10 +43,10 @@ export class HomeComponent implements OnInit {
   constructor(private expenseService: ExpenseService) {}
 
   ngOnInit(): void {
-    this.expenses$ = this.expenseService.getExpense('', '');
+    this.expenses$ = this.expenseService.getExpense(this.start, this.end);
   }
 
-  onClick(expenseId: number): void {
+  deleteExpense(expenseId: number): void {
     this.expenseService.deleteExpense(expenseId).subscribe({
       next: (data) => {
         console.log(data.message);
@@ -69,7 +84,7 @@ export class HomeComponent implements OnInit {
     this.modeOfPayment = null;
   }
 
-  private refreshExpenses(): void {
-    this.expenses$ = this.expenseService.getExpense('', '');
+  refreshExpenses(): void {
+    this.expenses$ = this.expenseService.getExpense(this.start, this.end);
   }
 }
