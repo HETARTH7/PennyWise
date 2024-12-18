@@ -5,6 +5,7 @@ import { AsyncPipe, NgFor } from '@angular/common';
 import { ExpenseService } from '../../services/expense.service';
 import { Observable } from 'rxjs';
 import { Expense } from '../../interfaces/expense';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -15,6 +16,7 @@ import { Expense } from '../../interfaces/expense';
 })
 export class HomeComponent implements OnInit {
   expenses$!: Observable<Expense[]>;
+  budget: number = 0.0;
   expenseId: number = 0;
   amount: number = 0;
   reason: string = '';
@@ -40,10 +42,21 @@ export class HomeComponent implements OnInit {
   categories = Object.values(Category);
   modesOfPayment = Object.values(PaymentMode);
 
-  constructor(private expenseService: ExpenseService) {}
+  constructor(
+    private expenseService: ExpenseService,
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
     this.expenses$ = this.expenseService.getExpense(this.start, this.end);
+    this.userService.getBudget().subscribe({
+      next: (response) => {
+        this.budget = response.budget;
+      },
+      error: (err) => {
+        console.error('Failed to fetch budget:', err);
+      },
+    });
   }
 
   deleteExpense(expenseId: number): void {
@@ -86,5 +99,16 @@ export class HomeComponent implements OnInit {
 
   refreshExpenses(): void {
     this.expenses$ = this.expenseService.getExpense(this.start, this.end);
+  }
+
+  updateBudget(newBudget: number): void {
+    this.userService.updateBudget(newBudget).subscribe({
+      next: (data) => {
+        console.log(data.message);
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
   }
 }

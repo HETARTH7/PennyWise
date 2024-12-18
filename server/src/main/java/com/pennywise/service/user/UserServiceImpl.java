@@ -35,6 +35,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Double getBudget(int userID) {
+        return userDAO.findById(userID).get().getBudget();
+    }
+
+    @Override
     public void updateBudget(int userID, Double budget) {
         Optional<User> user = userDAO.findById(userID);
         if (budget == null) {

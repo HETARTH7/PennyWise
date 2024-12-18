@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -57,13 +59,31 @@ public class UserController {
         }
     }
 
+    @GetMapping("/budget/{userID}")
+    public ResponseEntity<Map<String, String>> getBudget(@PathVariable int userID) {
+        try {
+            Double budget = userService.getBudget(userID);
+            Map<String, String> response = new HashMap<>();
+            response.put("budget", budget.toString());
+            return ResponseEntity.ok(response);
+        } catch (RuntimeException e) {
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(errorResponse);
+        }
+    }
+
     @PutMapping("/update")
-    public ResponseEntity<String> updateBudget(@RequestParam int userID, @RequestParam Double budget) {
+    public ResponseEntity<Map<String, String>> updateBudget(@RequestParam int userID, @RequestParam Double budget) {
         try {
             userService.updateBudget(userID, budget);
-            return ResponseEntity.ok("Budget updated successfully");
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Budget updated successfully");
+            return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(e.getMessage());
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(errorResponse);
         }
     }
 }

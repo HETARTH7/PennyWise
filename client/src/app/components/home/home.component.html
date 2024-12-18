@@ -52,6 +52,15 @@
 
 <div class="expense-list">
   <h3>Saved Expenses</h3>
+  <label for="budget">Budget:</label>
+  <input
+    type="number"
+    id="budget"
+    [(ngModel)]="budget"
+    name="budget"
+    required
+  />
+  <button (click)="updateBudget(budget)">Update Budget</button>
   <label for="start">From:</label>
   <input type="date" id="start" [(ngModel)]="start" name="start" required />
   <label for="end">To:</label>

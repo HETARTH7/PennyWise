@@ -1,1 +1,5 @@
-export interface User {}
+export interface User {
+  userID: number;
+  username: string;
+  budget: number;
+}

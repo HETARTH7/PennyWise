@@ -7,5 +7,7 @@ public interface UserService {
 
     User login(String username, String password);
 
+    Double getBudget(int userID);
+
     void updateBudget(int userID, Double budget);
 }
