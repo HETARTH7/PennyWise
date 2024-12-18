@@ -6,6 +6,7 @@ import { ExpenseService } from '../../services/expense.service';
 import { Observable } from 'rxjs';
 import { Expense } from '../../interfaces/expense';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -44,7 +45,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private expenseService: ExpenseService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -101,8 +103,8 @@ export class HomeComponent implements OnInit {
     this.expenses$ = this.expenseService.getExpense(this.start, this.end);
   }
 
-  updateBudget(newBudget: number): void {
-    this.userService.updateBudget(newBudget).subscribe({
+  updateBudget(): void {
+    this.userService.updateBudget(this.budget).subscribe({
       next: (data) => {
         console.log(data.message);
       },
@@ -110,5 +112,10 @@ export class HomeComponent implements OnInit {
         console.error(err);
       },
     });
+  }
+
+  logout(): void {
+    localStorage.clear();
+    this.router.navigate(['/']);
   }
 }

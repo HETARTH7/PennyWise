@@ -1,5 +1,6 @@
 <div class="expense-form">
   <h3>Add Expense</h3>
+  <button class="logout-btn" (click)="logout()">Logout</button>
   <form (ngSubmit)="onSubmit()">
     <div>
       <label for="amount">Amount:</label>
@@ -60,7 +61,7 @@
     name="budget"
     required
   />
-  <button (click)="updateBudget(budget)">Update Budget</button>
+  <button (click)="updateBudget()">Update Budget</button>
   <label for="start">From:</label>
   <input type="date" id="start" [(ngModel)]="start" name="start" required />
   <label for="end">To:</label>
@@ -74,6 +75,7 @@
         <th>Date</th>
         <th>Category</th>
         <th>Mode of Payment</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
